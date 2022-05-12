@@ -113,16 +113,16 @@
 
 	 IF (ZSTAR_E(I) > 0.01_SP .AND. D1(I)>ZSTAR_E(I)) THEN	 
        RESX(I) = (((ADX2D(I)+ADVUA(I)+DRX2D(I)+PSTX(I))/D1(I))-COR(I)*VA(I)*ART(I))*CAP_LAMDA_E(I)  &
-                 -((WUSURF2(I)+WUBOT(I))*ART(I))
+                 -((WUSURF2(I)+WUBOT(I))*ART(I)*CAP_LAMDA_E(I))
        RESY(I) = (((ADY2D(I)+ADVVA(I)+DRY2D(I)+PSTY(I))/D1(I))+COR(I)*UA(I)*ART(I))*CAP_LAMDA_E(I)  &
-                 -((WVSURF2(I)+WVBOT(I))*ART(I))				 
+                 -((WVSURF2(I)+WVBOT(I))*ART(I)*CAP_LAMDA_E(I))				 
 	 ELSE IF (ZSTAR_E(I) > 0.01_SP .AND. D1(I)<ZSTAR_E(I)) THEN
-	   RESX(I) = (((ADX2D(I)+ADVUA(I)+DRX2D(I)+PSTX(I))/D1(I))-COR(I)*VA(I)*ART(I))*CAP_LAMDA_E(I)  &
-                 -((WUSURF2(I)+WUBOT(I))*ART(I))
+       RESX(I) = (((ADX2D(I)+ADVUA(I)+DRX2D(I)+PSTX(I))/D1(I))-COR(I)*VA(I)*ART(I))*CAP_LAMDA_E(I)  &
+                 -((WUSURF2(I)+WUBOT(I))*ART(I)*(CAP_LAMDA_E(I)+0.001_SP))
        RESY(I) = (((ADY2D(I)+ADVVA(I)+DRY2D(I)+PSTY(I))/D1(I))+COR(I)*UA(I)*ART(I))*CAP_LAMDA_E(I)  &
-                 -((WVSURF2(I)+WVBOT(I))*ART(I))				  	 	 
+                 -((WVSURF2(I)+WVBOT(I))*ART(I)*(CAP_LAMDA_E(I)+0.001_SP))				  	 	 
 	 ELSE
-	   RESX(I) = ADX2D(I)+ADVUA(I)+DRX2D(I)+PSTX(I)-COR(I)*VA(I)*D1(I)*ART(I)  &
+       RESX(I) = ADX2D(I)+ADVUA(I)+DRX2D(I)+PSTX(I)-COR(I)*VA(I)*D1(I)*ART(I)  &
                  -(WUSURF2(I)+WUBOT(I))*ART(I)
        RESY(I) = ADY2D(I)+ADVVA(I)+DRY2D(I)+PSTY(I)+COR(I)*UA(I)*D1(I)*ART(I)  &
                  -(WVSURF2(I)+WVBOT(I))*ART(I)
